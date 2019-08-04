@@ -1,0 +1,26 @@
+version: '2'
+services:
+    grafana:
+        image: grafana/grafana
+        container_name: "grafana"
+        environment:
+          - "GF_SERVER_ROOT_URL=http://mon.kapitalho.az"
+          - "GF_SECURITY_ADMIN_PASSWORD=admin"
+        volumes:
+          - ./grafana/config/grafana.ini:/etc/grafana/grafana.ini
+        ports:
+            - 3001:3000
+    prometreus:
+        image: prom/prometheus
+        container_name: "prometheus"
+        volumes:
+          - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+        ports:
+            - 9090:9090
+    python_app:
+        build: ./python_app/.
+        image: python_app:latest
+        container_name: python_app
+        ports:
+          - 8000:8000
+        restart: always

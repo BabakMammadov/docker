@@ -1,0 +1,13 @@
+version: '2'
+services:
+  portainer:
+    image: "portainer/portainer:latest"
+    container_name: portainer
+    restart: always
+    command: --admin-password '$$2y$$05$$LpW31h/NsH9nEnPHVTM75uqsvJap7NYeFLl5XOtRRy64nArc8V5vq'
+    ports:
+      - 9000:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /opt/projects/portainer/data:/data
+
